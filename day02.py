@@ -42,6 +42,10 @@ print(power_of_minima)
 print('------------')
 
 index_sum = 0
+power_of_minima = 0
 for index, game in enumerate(games, start=1):
     index_sum += reduce(lambda boo, inp: boo and (int(inp[0])<=max_cubes[inp[1]]), re.findall(r"(\d+) (\w+)", game), True) * index
+    power_of_minima += reduce(lambda a,b:a*b, reduce(lambda nums, inp: {**nums, inp[1]:max(nums[inp[1]], int(inp[0]))}, re.findall(r"(\d+) (\w+)", game), {'blue':0,'red':0,'green':0}).values(), 1)
+
 print(index_sum)
+print(power_of_minima)
