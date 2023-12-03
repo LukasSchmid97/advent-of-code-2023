@@ -49,3 +49,10 @@ for index, game in enumerate(games, start=1):
 
 print(index_sum)
 print(power_of_minima)
+
+MAX_RED = 12
+MAX_GREEN = 13
+MAX_BLUE = 14
+
+# print(sum(set(list(map(int, re.findall(r"Game (\d+)", input_string)))) - set((index + 1 if int(num) > globals()[f"MAX_{color.upper()}"] else None) for index, game in enumerate(input_string.split('\n')) for _round in game[game.index(':') + 1:].split('; ') for num, color in map(lambda r: r.strip().split(' '), _round.split(', ')))))
+# print(sum([reduce(lambda x,y: x*y, reduce(lambda acc, values:{**acc, values[2]: max(acc[values[2]], int(values[1]))}, filter(lambda x: x[0] == game_index, [(index, num, color) for index, game in enumerate(input_string.split('\n')) for _round in game[game.index(':') + 1:].split('; ') for num, color in map(lambda r: r.strip().split(' '), _round.split(', '))]), {'red':0,'green':0,'blue':0}).values(), 1) for game_index in set(list(map(lambda x: x[0], [(index, num, color) for index, game in enumerate(input_string.split('\n')) for _round in game[game.index(':') + 1:].split('; ') for num, color in map(lambda r: r.strip().split(' '), _round.split(', '))])))]))
