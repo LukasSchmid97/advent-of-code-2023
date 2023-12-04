@@ -25,12 +25,10 @@ gear_map = {}
 
 input_string.split("\n").each_with_index do |row, row_index|
   row.chars.each_with_index do |char, column_index|
-    if /\d+/.match(char).nil? && char != '.'
-      symbol_coords.push([column_index, row_index])
-      if char == '*'
-        gear_map[[column_index, row_index]] = []
-      end
-    end
+    next unless /\d+/.match(char).nil? && char != '.'
+
+    symbol_coords.push([column_index, row_index])
+    gear_map[[column_index, row_index]] = [] if char == '*'
   end
 
   cur_index = 0
@@ -42,17 +40,14 @@ input_string.split("\n").each_with_index do |row, row_index|
   end
 end
 
-
 relevant_numbers = number_coords.select do |number, number_x, number_y|
   keep = false
   (-1..num_len.call(number)).each do |x_mod|
     [-1, 0, 1].each do |y_mod|
-      if symbol_coords.include?([number_x + x_mod, number_y + y_mod])
-        keep = true
-        if gear_map.key?([number_x + x_mod, number_y + y_mod])
-          gear_map[[number_x + x_mod, number_y + y_mod]].push(number)
-        end
-      end
+      next unless symbol_coords.include?([number_x + x_mod, number_y + y_mod])
+
+      keep = true
+      gear_map[[number_x + x_mod, number_y + y_mod]].push(number) if gear_map.key?([number_x + x_mod, number_y + y_mod])
     end
   end
   keep
@@ -64,4 +59,4 @@ end
 # puts relevant_numbers.collect(&:first).inspect
 puts relevant_numbers.collect(&:first).sum
 # puts gear_map.inspect
-puts gear_map.values.select { |g| g.count == 2 }.collect { |a| a.first*a.last}.sum
+puts gear_map.values.select { |g| g.count == 2 }.collect { |a| a.first * a.last }.sum

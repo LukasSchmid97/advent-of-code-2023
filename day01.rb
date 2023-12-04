@@ -25,8 +25,8 @@ nubmer_map = {
 numbers = input_string.split("\n")
 numbers = numbers.collect do |text|
   nubmer_positions = []
-  nubmer_map.each do |key,value|
-    ['index', 'rindex'].each do |pos|
+  nubmer_map.each do |key, value|
+    %w[index rindex].each do |pos|
       nubmer_positions[text.send(pos, key.to_s)] = value if text.send(pos, key.to_s)
       nubmer_positions[text.send(pos, value.to_s)] = value if text.send(pos, value.to_s)
     end
