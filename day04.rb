@@ -16,6 +16,7 @@ inputs = input_string.split("\n")
 score = 0
 task2_score = 0
 upcoming_duplicates = [0] * inputs.size
+
 inputs.each do |input|
     winners, mine = input.split(' | ').collect { |numlist| numlist.split(' ') }
     my_winners = mine.intersection(winners)
